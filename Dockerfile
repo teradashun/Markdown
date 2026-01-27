@@ -6,6 +6,6 @@ COPY requirements.txt /app/
 
 RUN pip install -r requirements.txt
 
-COPY my_scraper.py /app/
+COPY . /app/
 
 CMD ["bash"]

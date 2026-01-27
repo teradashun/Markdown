@@ -1,0 +1,8 @@
+services:
+  scraper:
+    build: .
+    volumes:
+      - .:/app/data/
+    env_file:
+      - .env
+    tty: true
