@@ -1,10 +1,22 @@
 import os
+import argparse
 from firecrawl import FirecrawlApp
 from dotenv import load_dotenv
 
 load_dotenv()
 api_key = os.getenv("API_KEY")
-file_name = os.getenv("FILE_NAME")
+
+parser = argparse.ArgumentParser(description="Firecrawl Web Scraper")
+parser.add_argument(
+    "-n",
+    "--name",
+    type=str,
+    default=os.getenv("FILE_NAME", "output.md"),
+)
+
+args = parser.parse_args()
+
+file_name = args.name
 
 save_dir = "data/raw"
 os.makedirs(save_dir, exist_ok=True)
@@ -37,6 +49,7 @@ for url in urls:
 if scraped_data:
     with open(file_path, "w", encoding="utf-8") as f:
         f.write("\n\n---\n\n".join(scraped_data))
+
     print(f"完了: {file_path} に保存しました。")
 else:
     print("保存するデータがありませんでした。")
